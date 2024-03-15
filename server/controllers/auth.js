@@ -30,7 +30,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
     email,
     password: hash,
   });
-  const token = jwt.sign({ uid: newUser._id }, process.env.JWT_SECRET);
+  const token = jwt.sign({ uid: newUser._id }, process.env.JWT_SECRET);  //JWT_SECRET="1234"
   //   const token = jwt.sign({ uid: newUser }, process.env.JWT_SECRET);
   //   const token = jwt.sign({ uid: newUser }, process.env.JWT_SECRET, {expiresIn '30m'});
   res.status(201).send({ token });
@@ -55,6 +55,10 @@ export const signIn = asyncHandler(async (req, res, next) => {
 
 // VerifyUser
 export const getUser = asyncHandler(async (req, res, next) => {
+  // const { _id } = req.params;
+  // const { body } = req.body;
+  // const user = await User.findById(body._id);
+
   const user = await User.findById(req.uid);
   res.json(user);
 });
